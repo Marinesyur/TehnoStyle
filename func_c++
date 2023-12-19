@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <chrono>
+
+// Структура для представления заказа
+struct Order {
+    std::string name;
+    std::string phoneNumber;
+    int orderType;
+    int productModel;
+    std::string comments;
+    std::chrono::system_clock::time_point measurementDate;
+};
+
+// "Модель" базы данных
+class Database {
+public:
+    std::vector<Order> GetOrders() {
+        // Реализация метода получения заказов из базы данных
+        // ...
+        return {}; // Возвращаем пустой список заказов для примера
+    }
+
+    void SaveOrder(const Order& order) {
+        // Реализация метода сохранения заказа в базе данных
+        // ...
+    }
+};
+
+// Глобальный объект базы данных
+Database App_Db;
+
+// Метод для отображения заказов
+void ShowOrders() {
+    // Получаем заказы из базы данных
+    std::vector<Order> orders = App_Db.GetOrders();
+    // Отображаем заказы
+    for (const auto& order : orders) {
+        // Вывод информации о заказе (например, на консоль)
+        // ...
+    }
+}
+
+// Метод для добавления нового заказа
+void AddOrder() {
+    try {
+        std::string name, phoneNumber, comments;
+        int orderType, productModel;
+        std::chrono::system_clock::time_point measurementDate;
+
+        // Получаем данные о заказе (например, из консоли или других источников ввода)
+        // ...
+
+        // Проверяем введенные данные
+        if (name.length() < 5) {
+            // Выводим сообщение об ошибке
+            // ...
+            return;
+        }
+        if (phoneNumber.length() < 11) {
+            // Выводим сообщение об ошибке
+            // ...
+            return;
+        }
+
+        // Создаем объект заказа
+        Order order = {name, phoneNumber, orderType, productModel, comments, measurementDate};
+
+        // Сохраняем заказ в базе данных
+        App_Db.SaveOrder(order);
+
+        // Отображаем обновленный список заказов
+        ShowOrders();
+
+        // Выводим сообщение об успешном добавлении заказа
+        // ...
+
+        // Очищаем введенные данные
+        name = "";
+        phoneNumber = "";
+        orderType = -1;
+        productModel = -1;
+        comments = "";
+
+    } catch (const std::exception& ex) {
+        // Выводим сообщение об ошибке
+        // ...
+    }
+}
+
+int main() {
+    // Вызываем метод для добавления заказа
+    AddOrder();
+    return 0;
+}
+
+
+
